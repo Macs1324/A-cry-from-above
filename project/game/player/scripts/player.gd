@@ -6,5 +6,3 @@ onready var animation_tree = $AnimationTree
 onready var animation_state = animation_tree["parameters/playback"]
 onready var sprite = $Sprite
 onready var flippable_colliders = $Colliders/Flippable
-
-var swords_out = true

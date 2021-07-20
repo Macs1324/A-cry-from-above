@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=2]
+[gd_scene load_steps=69 format=2]
 
 [ext_resource path="res://game/player/sprites/run.png" type="Texture" id=1]
 [ext_resource path="res://game/player/sprites/idle.png" type="Texture" id=2]
@@ -15,6 +15,9 @@
 [ext_resource path="res://game/player/sprites/out_idle.png" type="Texture" id=13]
 [ext_resource path="res://game/player/state_machine/states/wall_hang.gd" type="Script" id=14]
 [ext_resource path="res://game/player/sprites/wall_hang.png" type="Texture" id=15]
+[ext_resource path="res://game/player/sprites/out_jump_up.png" type="Texture" id=16]
+[ext_resource path="res://game/player/sprites/out_jump_switch.png" type="Texture" id=17]
+[ext_resource path="res://game/player/sprites/out_jump_down.png" type="Texture" id=18]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_1"
@@ -195,6 +198,48 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=5]
+resource_name = "jump_down_swords"
+length = 0.2
+loop = true
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 18 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=6]
 length = 0.15
 step = 0.05
 tracks/0/type = "value"
@@ -234,7 +279,48 @@ tracks/2/keys = {
 "values": [ 0, 1, 2 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=7]
+resource_name = "jump_switch_swords"
+length = 0.3
+step = 0.075
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 17 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 4 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.075, 0.15, 0.225 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=8]
 length = 0.2
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
@@ -273,7 +359,46 @@ tracks/2/keys = {
 "values": [ 0, 1 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=9]
+resource_name = "jump_up_swords"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:hframes")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 2 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ ExtResource( 16 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=10]
 length = 0.52
 loop = true
 step = 0.065
@@ -314,8 +439,7 @@ tracks/2/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "run_swords"
+[sub_resource type="Animation" id=11]
 length = 0.48
 loop = true
 step = 0.06
@@ -356,8 +480,7 @@ tracks/2/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
 }
 
-[sub_resource type="Animation" id=9]
-resource_name = "wall_hang"
+[sub_resource type="Animation" id=12]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:texture")
 tracks/0/interp = 1
@@ -395,59 +518,55 @@ tracks/2/keys = {
 "values": [ 0 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=10]
+[sub_resource type="CapsuleShape2D" id=13]
 radius = 7.86893
 height = 15.7493
 
-[sub_resource type="AnimationNodeAnimation" id=11]
+[sub_resource type="AnimationNodeAnimation" id=14]
 animation = "attack_1"
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="AnimationNodeAnimation" id=15]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=16]
 animation = "idle_swords"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=17]
 animation = "jump_down"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
-animation = "jump_switch"
-
-[sub_resource type="AnimationNodeAnimation" id=16]
-animation = "jump_up"
-
-[sub_resource type="AnimationNodeAnimation" id=17]
-animation = "run"
-
 [sub_resource type="AnimationNodeAnimation" id=18]
-animation = "run_swords"
+animation = "jump_down_swords"
 
 [sub_resource type="AnimationNodeAnimation" id=19]
+animation = "jump_switch"
+
+[sub_resource type="AnimationNodeAnimation" id=20]
+animation = "jump_switch_swords"
+
+[sub_resource type="AnimationNodeAnimation" id=21]
+animation = "jump_up"
+
+[sub_resource type="AnimationNodeAnimation" id=22]
+animation = "jump_up_swords"
+
+[sub_resource type="AnimationNodeAnimation" id=23]
+animation = "run"
+
+[sub_resource type="AnimationNodeAnimation" id=24]
+animation = "run_swords"
+
+[sub_resource type="AnimationNodeAnimation" id=25]
 animation = "wall_hang"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=20]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=21]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-switch_mode = 2
-auto_advance = true
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=26]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=27]
-switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=28]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=29]
+switch_mode = 2
+auto_advance = true
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=30]
 
@@ -456,41 +575,72 @@ switch_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=33]
+switch_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=34]
 
-[sub_resource type="AnimationNodeStateMachine" id=35]
-states/attack_1/node = SubResource( 11 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=35]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=36]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=37]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=38]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=39]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=40]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=41]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=42]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=43]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=44]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=45]
+
+[sub_resource type="AnimationNodeStateMachine" id=46]
+states/attack_1/node = SubResource( 14 )
 states/attack_1/position = Vector2( 314, 93 )
-states/idle/node = SubResource( 12 )
+states/idle/node = SubResource( 15 )
 states/idle/position = Vector2( 487, 93 )
-states/idle_swords/node = SubResource( 13 )
-states/idle_swords/position = Vector2( 708, 93 )
-states/jump_down/node = SubResource( 14 )
-states/jump_down/position = Vector2( 487, -71 )
-states/jump_switch/node = SubResource( 15 )
-states/jump_switch/position = Vector2( 487, -168 )
-states/jump_up/node = SubResource( 16 )
-states/jump_up/position = Vector2( 314, -71 )
-states/run/node = SubResource( 17 )
-states/run/position = Vector2( 678, -35 )
-states/run_swords/node = SubResource( 18 )
-states/run_swords/position = Vector2( 846, -35 )
-states/wall_hang/node = SubResource( 19 )
-states/wall_hang/position = Vector2( 678, -168 )
-transitions = [ "idle", "run", SubResource( 20 ), "run", "idle", SubResource( 21 ), "jump_up", "jump_switch", SubResource( 22 ), "jump_switch", "jump_down", SubResource( 23 ), "jump_down", "idle", SubResource( 24 ), "idle", "jump_up", SubResource( 25 ), "idle", "attack_1", SubResource( 26 ), "attack_1", "idle", SubResource( 27 ), "run", "run_swords", SubResource( 28 ), "run_swords", "run", SubResource( 29 ), "idle", "idle_swords", SubResource( 30 ), "idle_swords", "idle", SubResource( 31 ), "idle", "wall_hang", SubResource( 32 ), "wall_hang", "idle", SubResource( 33 ), "jump_switch", "wall_hang", SubResource( 34 ) ]
+states/idle_swords/node = SubResource( 16 )
+states/idle_swords/position = Vector2( 710, 93 )
+states/jump_down/node = SubResource( 17 )
+states/jump_down/position = Vector2( 864, -326 )
+states/jump_down_swords/node = SubResource( 18 )
+states/jump_down_swords/position = Vector2( 726, -34 )
+states/jump_switch/node = SubResource( 19 )
+states/jump_switch/position = Vector2( 314, -163 )
+states/jump_switch_swords/node = SubResource( 20 )
+states/jump_switch_swords/position = Vector2( 487, -119 )
+states/jump_up/node = SubResource( 21 )
+states/jump_up/position = Vector2( 314, -29 )
+states/jump_up_swords/node = SubResource( 22 )
+states/jump_up_swords/position = Vector2( 487, -29 )
+states/run/node = SubResource( 23 )
+states/run/position = Vector2( 487, 199 )
+states/run_swords/node = SubResource( 24 )
+states/run_swords/position = Vector2( 710, 199 )
+states/wall_hang/node = SubResource( 25 )
+states/wall_hang/position = Vector2( 673, -198 )
+transitions = [ "idle", "run", SubResource( 26 ), "run", "idle", SubResource( 27 ), "jump_up", "jump_switch", SubResource( 28 ), "jump_switch", "jump_down", SubResource( 29 ), "jump_down", "idle", SubResource( 30 ), "idle", "jump_up", SubResource( 31 ), "idle", "attack_1", SubResource( 32 ), "attack_1", "idle", SubResource( 33 ), "run", "run_swords", SubResource( 34 ), "run_swords", "run", SubResource( 35 ), "idle", "idle_swords", SubResource( 36 ), "idle_swords", "idle", SubResource( 37 ), "idle", "wall_hang", SubResource( 38 ), "wall_hang", "idle", SubResource( 39 ), "jump_switch", "wall_hang", SubResource( 40 ), "idle", "jump_up_swords", SubResource( 41 ), "jump_up_swords", "jump_switch_swords", SubResource( 42 ), "jump_switch_swords", "jump_down_swords", SubResource( 43 ), "jump_down_swords", "idle", SubResource( 44 ), "jump_switch_swords", "wall_hang", SubResource( 45 ) ]
 start_node = "idle"
-graph_offset = Vector2( -265, -209 )
+graph_offset = Vector2( -98, -332 )
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=36]
+[sub_resource type="AnimationNodeStateMachinePlayback" id=47]
 
-[sub_resource type="RectangleShape2D" id=37]
+[sub_resource type="RectangleShape2D" id=48]
 extents = Vector2( 6.1506, 0.966101 )
 
-[sub_resource type="CapsuleShape2D" id=38]
+[sub_resource type="CapsuleShape2D" id=49]
 height = 7.25
 
-[sub_resource type="CapsuleShape2D" id=39]
+[sub_resource type="CapsuleShape2D" id=50]
 radius = 1.85808
 height = 0.0
 
@@ -502,27 +652,30 @@ script = ExtResource( 3 )
 position = Vector2( 0.255592, -0.420448 )
 texture = ExtResource( 2 )
 hframes = 6
-frame = 1
+frame = 4
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_1 = SubResource( 1 )
 anims/idle = SubResource( 2 )
 anims/idle_swords = SubResource( 3 )
 anims/jump_down = SubResource( 4 )
-anims/jump_switch = SubResource( 5 )
-anims/jump_up = SubResource( 6 )
-anims/run = SubResource( 7 )
-anims/run_swords = SubResource( 8 )
-anims/wall_hang = SubResource( 9 )
+anims/jump_down_swords = SubResource( 5 )
+anims/jump_switch = SubResource( 6 )
+anims/jump_switch_swords = SubResource( 7 )
+anims/jump_up = SubResource( 8 )
+anims/jump_up_swords = SubResource( 9 )
+anims/run = SubResource( 10 )
+anims/run_swords = SubResource( 11 )
+anims/wall_hang = SubResource( 12 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 10 )
+shape = SubResource( 13 )
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 35 )
+tree_root = SubResource( 46 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource( 36 )
+parameters/playback = SubResource( 47 )
 
 [node name="Colliders" type="Node2D" parent="."]
 
@@ -531,7 +684,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/GroundDetector"]
 position = Vector2( 0, 14.8972 )
-shape = SubResource( 37 )
+shape = SubResource( 48 )
 
 [node name="Flippable" type="Node2D" parent="Colliders"]
 
@@ -539,14 +692,14 @@ shape = SubResource( 37 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/Flippable/Hitbox"]
 position = Vector2( 18, 2.875 )
-shape = SubResource( 38 )
+shape = SubResource( 49 )
 
 [node name="WallDetector" type="Area2D" parent="Colliders/Flippable"]
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/Flippable/WallDetector"]
-position = Vector2( 6.62305, 2.30066 )
-shape = SubResource( 39 )
+position = Vector2( 6.51107, -6.9032 )
+shape = SubResource( 50 )
 
 [node name="StateMachine" parent="." instance=ExtResource( 4 )]
 
@@ -571,6 +724,12 @@ script = ExtResource( 14 )
 [node name="StartSliding" type="Timer" parent="StateMachine/WallHang"]
 
 [node name="Detach" type="Timer" parent="StateMachine/WallHang"]
+
+[node name="ParticleSpawners" type="Node2D" parent="."]
+
+[node name="LandDust" type="Node2D" parent="ParticleSpawners"]
+position = Vector2( 0, 14.761 )
+
 [connection signal="body_entered" from="Colliders/GroundDetector" to="StateMachine/Airborne" method="_on_GroundDetector_body_entered"]
 [connection signal="body_exited" from="Colliders/GroundDetector" to="StateMachine/Walk" method="_on_GroundDetector_body_exited"]
 [connection signal="body_entered" from="Colliders/Flippable/WallDetector" to="StateMachine/Airborne" method="_on_WallDetector_body_entered"]

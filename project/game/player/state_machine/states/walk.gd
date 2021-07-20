@@ -32,10 +32,7 @@ func _update(delta : float) -> void:
 	
 	#IF PLAYER IS MOVING
 	if input_x != 0:
-		if not p.swords_out:
-			velocity.x = move_toward(velocity.x, input_x * MAX_WALK_SPEED, ACCELERATION * delta)
-		else:
-			velocity.x = move_toward(velocity.x, input_x * MAX_RUN_SPEED, ACCELERATION * delta)
+		velocity.x = move_toward(velocity.x, input_x * MAX_RUN_SPEED, ACCELERATION * delta)
 		
 		#if player is going left
 		if input_x < 0:
@@ -61,14 +58,8 @@ func _update(delta : float) -> void:
 #animates dat shiet
 func _animate(animation_state : AnimationNodeStateMachinePlayback, animator : AnimationTree) -> void:
 	if input_x != 0:
-		if not p.swords_out:
-			animation_state.travel("run")
-		else:
 			animation_state.travel("run_swords")
 	else:
-		if not p.swords_out:
-			animation_state.travel("idle")
-		else:
 			animation_state.travel("idle_swords")
 			
 func apply_gravity(delta : float) -> void:

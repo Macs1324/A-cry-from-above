@@ -12,7 +12,7 @@ const SLIDING_SPEED = 120
 const HANG_TIME = 0.3
 const DETACH_TIME = 0.2
 const JUMP_FORCE = 600
-const JUMP_X_FORCE = 150
+const JUMP_X_FORCE = 250
 
 var phase : int = phases.HANGING
 var flip_dir : float
@@ -33,7 +33,7 @@ func _update(delta : float) -> void:
 		machine.get_node("Airborne").velocity.y = -JUMP_FORCE
 		machine.get_node("Airborne").velocity.x = JUMP_X_FORCE * flip_dir
 		emit_signal("transition", "Airborne")
-	if flip_dir > 0:
+	if flip_dir < 0:
 		if Input.is_action_just_pressed("left"):
 			detach_timer.start(DETACH_TIME)
 	else:
@@ -56,9 +56,11 @@ func _on_WallDetector_body_exited(body: Node) -> void:
 
 func _on_Detach_timeout() -> void:
 	if active():
-		if flip_dir > 0:
+		if flip_dir < 0:
 			if Input.is_action_pressed("left"):
-				detach_timer.start(DETACH_TIME)
+				machine.get_node("Airborne").velocity.y = 0
+				emit_signal("transition", "Airborne")
 		else:
 			if Input.is_action_pressed("right"):
-				detach_timer.start(DETACH_TIME)
+				machine.get_node("Airborne").velocity.y = 0
+				emit_signal("transition", "Airborne")

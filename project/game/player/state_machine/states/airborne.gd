@@ -3,8 +3,10 @@ extends State
 const GRAVITY = 2000
 const MAX_GRAVITY = 1000
 const MAX_SPEED = 280
+const MAX_SPEED_SWORDSOUT = 350
 
 const ACCELERATION = 800
+const ACCELERATION_SWORDSOUT = 1500
 const FRICTION = 600
 
 const JUMP_CUTOFF = 3
@@ -38,7 +40,9 @@ func _update(delta : float) -> void:
 	if input_x != 0:
 		sprite.flip_h = input_x < 0                              #flips sprite and hitboxes according to the input
 		p.flippable_colliders.rotation_degrees = 180 * int(input_x < 0)
-		velocity.x = move_toward(velocity.x, input_x * MAX_SPEED, ACCELERATION * delta)  #accelerates the player
+		
+		velocity.x = move_toward(velocity.x, input_x * MAX_SPEED_SWORDSOUT, ACCELERATION_SWORDSOUT * delta)  #accelerates the player
+			
 	else:
 		velocity.x = move_toward(velocity.x, 0, FRICTION * delta)       #decelerates the player
 		
@@ -60,9 +64,9 @@ func _on_GroundDetector_body_entered(_body: Node) -> void:
 
 func _animate(animation_state : AnimationNodeStateMachinePlayback, _animator : AnimationTree) -> void:
 	if velocity.y < 0:
-		animation_state.travel("jump_up")
+		animation_state.travel("jump_up_swords")
 	else:
-		animation_state.travel("jump_down")
+		animation_state.travel("jump_down_swords")
 
 
 func _on_JumpQueue_timeout() -> void:
@@ -79,5 +83,6 @@ func _exit(newstate : String):
 
 #Wall Sliding
 func _on_WallDetector_body_entered(body: Node) -> void:
+	#we only want that when our swords are out
 	if active():
 		emit_signal("transition", "WallHang")
